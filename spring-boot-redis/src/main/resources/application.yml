@@ -1,0 +1,39 @@
+server:
+  port: 8766
+
+
+spring:
+  profiles:
+    active: sentinel
+
+
+#  redis:
+#    password:
+#    port:
+#    ssl: false     #是否使用SSL  默认 false
+#    timeout: 60000    #连接超时
+#    host: 6379
+#    url: redis://user:password@example.com:6379   #覆盖 host port password
+#    database: 0     #默认使用数据库 默认 0   一共 16 个
+#    sentinel:    #哨兵模式
+#      nodes: 127.0.0.1:6389,192.168.0.1:6380     #哨兵服务节点 逗号分隔
+#      master: mymaster   #哨兵监听的 redis master server 名称
+#    cluster:  #集群
+#      max-redirects:   # Maximum number of redirects to follow when executing commands across the cluster.
+#      nodes:  # Comma-separated list of "host:port" pairs to bootstrap from.
+#    jedis:
+#      pool:
+#        # Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if it is positive.
+#        min-idle: 0
+#        # Maximum number of "idle" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.
+#        max-idle: 8
+#        # Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.
+#        max-wait: -1ms
+#        # Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.
+#        max-active: 8
+#    lettuce:
+#      pool:
+#        min-idle:
+#        max-idle:
+#        max-wait:
+#        max-active:

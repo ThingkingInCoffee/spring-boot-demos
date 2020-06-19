@@ -1,0 +1,33 @@
+server:
+  port: 8001
+  servlet:
+    application-display-name: rabbitServer
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: rabbit-application
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    #    支持发布到交换机确认
+    publisher-confirms: true
+    #    支持发布队列返回
+    publisher-returns: true
+    listener:
+      simple:
+        #采用手动应答
+        acknowledge-mode: manual
+        # 当前监听容器数
+        concurrency: 1
+        # 最大数
+        max-concurrency: 1
+        # 是否支持重试 - 需配置在消费端，重试是在消费端-条件：抛出异常
+        retry:
+          enabled: true
+          maxAttempts: 5
+          initialInterval: 5000ms

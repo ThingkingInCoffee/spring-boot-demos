@@ -1,0 +1,10 @@
+spring:
+  redis:
+    sentinel:
+      master: mymaster
+      nodes: 192.168.76.129:7205,192.168.76.129:7206,192.168.76.129:7207
+    password: redis
+    timeout: 60000ms
+
+
+#哨兵模式中 host 和 port 无需配置
