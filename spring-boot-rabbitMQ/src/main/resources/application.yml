@@ -9,11 +9,11 @@ spring:
   application:
     name: rabbit-application
   rabbitmq:
-    host: localhost
+    host: 192.168.12.223
     port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
+    username: supplychain_local
+    password: 123456
+    virtual-host: /opec-oscs-local
     #    支持发布到交换机确认
     publisher-confirms: true
     #    支持发布队列返回
