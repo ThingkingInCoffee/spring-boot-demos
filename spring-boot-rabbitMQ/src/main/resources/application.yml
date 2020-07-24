@@ -90,6 +90,6 @@ spring:
         #size: 5
       channel:
         # 如果 cache size 已满，等待获取一个连接的超时时间
-        checkout-timeout: 60ms
+        checkout-timeout: 0
         # 缓存中会一直维持的 channel 数量
         size: 2
