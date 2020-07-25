@@ -11,23 +11,85 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
+    # 客户端连接地址集合 逗号分隔
+    #addresses: 192.168.0.1,192.168.0.2
     username: guest
     password: guest
-    virtual-host: /
-    #    支持发布到交换机确认
-    publisher-confirms: true
-    #    支持发布队列返回
+    virtual-host: /demo
+    connection-timeout: 30000ms
+    # 请求心跳超时时间 0 表示无限
+    requested-heartbeat: 0
+    # 是否创建一个 AmqpAdmin bean 默认 true
+    dynamic: true
+    # 是否启用发布队列返回 默认 false
     publisher-returns: true
+    # 发布确认的类型
+    publisher-confirm-type: correlated
     listener:
+      # 监听容器类型 默认 simple
+      type: simple
       simple:
         #采用手动应答
         acknowledge-mode: manual
-        # 当前监听容器数
-        concurrency: 1
+        # 监听器执行线程的最小数值
+        concurrenc: 1
         # 最大数
         max-concurrency: 1
+        prefetch: 1
+        auto-startup: true
+        batch-size: 5
+        # 容器空闲事件发布间隔
+        idle-event-interval: 1000
+        # 是否拒绝默认规则re-queue的传递
+        default-requeue-rejected: false
+        missing-queues-fatal: true
         # 是否支持重试 - 需配置在消费端，重试是在消费端-条件：抛出异常
         retry:
           enabled: true
           maxAttempts: 5
           initialInterval: 5000ms
+          # 最大尝试重试间隔 默认 10000ms
+          max-interval: 10000ms
+          # whether retry are stateless or stateful 默认 true
+          stateless: true
+          # multiplier to apply to the previous retry interval 默认 1
+          multiplier: 1
+      direct:
+        # 每个队列的消费者数量
+        consumers-per-queue: 1
+        # 每个消费者可以预拉取的消息数量，这些消息不会 ack 处理，仅拉取，待消费
+        prefetch: 1
+        # 容器的 ack 模式
+        acknowledge-mode: manual
+        # 是否自动启动容器 默认 true
+        auto-startup: true
+        # 是否拒绝默认规则re-queue的传递
+        default-requeue-rejected: false
+        # 容器空闲事件发布间隔
+        idle-event-interval: 1000
+        # 如果在broker 上找不到声明的队列，是否失败 默认false
+        missing-queues-fatal: false
+        retry:
+          # 是否开启发布重试 默认 false
+          enabled: false
+          # 重试间隔 默认 1000ms
+          initial-interval: 1000ms
+          # 最大重试次数 默认 3
+          max-attempts: 3
+          # 最大重试间隔 默认10000ms
+          max-interval: 10000ms
+          # whether retry are stateless or stateful 默认 true
+          stateless: true
+          # multiplier to apply to the previous retry interval 默认 1
+          multiplier: 1
+    cache:
+      connection:
+        # 连接缓存模式 默认 channel
+        mode: channel
+        # 连接缓存个数 注意：channel模式下，不能设置 size 属性
+        #size: 5
+      channel:
+        # 如果 cache size 已满，等待获取一个连接的超时时间
+        checkout-timeout: 0
+        # 缓存中会一直维持的 channel 数量
+        size: 2
