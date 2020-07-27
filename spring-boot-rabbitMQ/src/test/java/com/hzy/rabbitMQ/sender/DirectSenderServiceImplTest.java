@@ -1,5 +1,6 @@
 package com.hzy.rabbitMQ.sender;
 
+import com.alibaba.fastjson.JSON;
 import com.hzy.rabbitMQ.RabbitMQApplication;
 import com.hzy.rabbitMQ.bean.DemoMessage;
 import com.hzy.rabbitMQ.common.constant.ExchangeConstant;
@@ -31,7 +32,7 @@ class DirectSenderServiceImplTest {
     @Test
     void sendMessage() {
         DemoMessage demoMessage = getDemoMessage();
-        directSenderService.sendMessage(ExchangeConstant.DIRECT_EXCHANGE, RoutingKeyConstant.DIRECT_ROUTING_KEY, demoMessage);
+        directSenderService.sendMessage(ExchangeConstant.DIRECT_EXCHANGE, RoutingKeyConstant.DIRECT_ROUTING_KEY, JSON.toJSONString(demoMessage));
     }
 
     @Test
