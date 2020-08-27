@@ -1,6 +1,6 @@
-package com.hzy.fileUtil.service.impl;
+package com.hzy.file.service.impl;
 
-import com.hzy.fileUtil.service.FilePDFService;
+import com.hzy.file.service.FilePDFService;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.hzy.fileUtil.service;
+package com.hzy.file.service;
 
 import com.itextpdf.text.DocumentException;
 
@@ -9,7 +9,7 @@ public interface FilePDFService {
 
     void createSimpleTable() throws DocumentException, FileNotFoundException;
 
-    public void createTablePdf() throws IOException, DocumentException;
+    void createTablePdf() throws IOException, DocumentException;
 
-    public void createPICCPdf() throws IOException, DocumentException;
+    void createPICCPdf() throws IOException, DocumentException;
 }

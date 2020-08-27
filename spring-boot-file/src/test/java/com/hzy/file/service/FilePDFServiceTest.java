@@ -1,4 +1,4 @@
-package com.hzy.fileUtil.service;
+package com.hzy.file.service;
 
 import com.itextpdf.text.DocumentException;
 import org.junit.Test;
