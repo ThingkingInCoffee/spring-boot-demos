@@ -6,4 +6,6 @@ public interface ExchangeConstant {
     String FANOUT_EXCHANGE = "config_fanout_exchange";
     String TOPIC_EXCHANGE = "config_topic_exchange";
 
+    String DEMO_EXCHANGE = "demoDirectExchange";
+
 }

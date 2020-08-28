@@ -10,4 +10,6 @@ public interface QueueConstant {
     String TOPIC_QUEUE_B = "config_topic_queue_b";
     String TOPIC_QUEUE_C = "config_topic_queue_c";
 
+    String DEMO_QUEUE = "demoDirectQueue";
+
 }

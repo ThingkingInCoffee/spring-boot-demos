@@ -8,4 +8,5 @@ public interface RoutingKeyConstant {
     String TOPIC_ROUTING_KEY_B = "demo.*";
     String TOPIC_ROUTING_KEY_C = "test.to";
 
+    String DEMO_KEY = "direct";
 }
