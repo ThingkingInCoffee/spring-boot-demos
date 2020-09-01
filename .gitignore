@@ -1,6 +1,7 @@
 target/
 logs/
 log/
+*.log
 !.mvn/wrapper/maven-wrapper.jar
 .DS_Store
 release.properties
