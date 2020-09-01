@@ -1,0 +1,17 @@
+server:
+  port: 8001
+  servlet:
+    application-display-name: logging-server
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: logging-application
+
+#指定使用的日志配置文件
+logging:
+  config: classpath:logback-spring.xml
+#  config: classpath:special-logback.xml
+#  config: classpath:logback-spring-${spring.profiles.active}.xml
+
