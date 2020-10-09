@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+        <smtpHost>${smtpHost}</smtpHost>
+        <to>${to}</to>
+        <from>${from}</from>
+        <subject>%logger{20} - %m</subject>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout" />
+        <cyclicBufferTracker
+                class="ch.qos.logback.core.spi.CyclicBufferTracker">
+            <!-- 设置缓冲去大小 每封邮件只包含一条日志 -->
+            <bufferSize>1</bufferSize>
+        </cyclicBufferTracker>
+    </appender>
+
+    <appender name="EMAIL_1024" class="ch.qos.logback.classic.net.SMTPAppender">
+        <!-- 如果不指定evaluator属性,默认会创建OnErrorEvaluator,当出现error级别日志会发送邮件-->
+        <!-- 自定义事件鉴定器,每次出现1024次日志时触发邮件发送-->
+        <evaluator class="com.hzy.logging.common.config.CounterBasedEvaluator" />
+        <smtpHost>${smtpHost}</smtpHost>
+        <to>${to}</to>
+        <from>${from}</from>
+        <subject>%logger{20} - %m</subject>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+    </appender>
+
+    <!-- 当存在日志事件被标记为 NOTIFY_ADMIN 或者 TRANSACTION_FAILURE 将会触发邮件发送-->
+    <!-- 对应demo com.hzy.logging.common.Demo.Marked_EMail-->
+    <appender name="EMAIL_MARKER" class="ch.qos.logback.classic.net.SMTPAppender">
+        <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+            <!-- 你可以指定多个标记 -->
+            <marker>NOTIFY_ADMIN</marker>
+            <marker>TRANSACTION_FAILURE</marker>
+        </evaluator>
+        <smtpHost>${smtpHost}</smtpHost>
+        <to>${to}</to>
+        <from>${from}</from>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+    </appender>
+
+    <appender name="EMAIL_J" class="ch.qos.logback.classic.net.SMTPAppender">
+        <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+            <expression>
+                (marker != null) && (marker.contains("NOTIFY_ADMIN") || marker.contains("TRANSACTION_FAILURE"))
+            </expression>
+        </evaluator>
+        <smtpHost>${smtpHost}</smtpHost>
+        <to>${to}</to>
+        <from>${from}</from>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+    </appender>
+
+    <appender name="EMAIL_G" class="ch.qos.logback.classic.net.SMTPAppender">
+        <evaluator class="ch.qos.logback.classic.boolex.GEventEvaluator">
+            <expression>
+                e.marker?.contains("NOTIFY_ADMIN") || e.marker?.contains("TRANSACTION_FAILURE")
+            </expression>
+        </evaluator>
+        <smtpHost>${smtpHost}</smtpHost>
+        <to>${to}</to>
+        <from>${from}</from>
+        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+    </appender>
+
+
+    <root level="DEBUG">
+        <appender-ref ref="EMAIL" />
+    </root>
+</configuration>

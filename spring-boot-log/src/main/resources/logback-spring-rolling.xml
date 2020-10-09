@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--当没有配置时，使用的默认配置等同如下-->
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 指定了file则每次轮转活跃的文件名称始终为file设置的 -->
+        <file>logFile.log</file>
+        <!-- 轮转的方式-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天轮转 -->
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 可以使用多个%d设置辅助轮转规则（通过 aux）,此时的轮转单位依然是不带aux的yyyy-MM-dd以天为单位-->
+<!--            <fileNamePattern>logFile.%d{yyyy/MM, aux}/myapplication.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <!-- 保存 30 天的历史记录，最大大小为 30GB -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3KB</totalSizeCap>
+            <!-- appender 启动的时候，归档文件将会被删除。默认的值为 false-->
+<!--            <cleanHistoryOnStart>true</cleanHistoryOnStart>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- RollingFileAppender 在使用严格模式时要与 `TimeBasedRollingPolicy 结合使用-->
+    <!-- FixedWindowRollingPolicy 不支持该属性-->
+    <appender name="FILE_PRUDENT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 支持多个 JVM 同时写一个文件 -->
+        <!-- 开启严格模式，默认不开启，开启时不允许开启文件压缩，同时不能启用 file 属性 -->
+        <prudent>true</prudent>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SIZE_AND_TIME" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>sizeAndTime.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按天轮转 -->
+            <!-- 除了 %d 之外还有 %i 两个占位符都是强制要求-->
+            <fileNamePattern>sizeAndTime-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 单文件的最大值-->
+            <maxFileSize>1MB</maxFileSize>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>20MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FIXED_WINDOW" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 必须设置-->
+        <file>fixedWindow.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>fixedWindow.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <!-- 默认最大20-->
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+        <!-- 触发条件依据文件大小-->
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <!-- 默认10MB-->
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
