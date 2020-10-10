@@ -49,6 +49,7 @@
         </encoder>
     </appender>
 
+    <!-- JaninoEventEvaluator 测试-->
     <appender name="JANINO_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
             <evaluator> <!-- 默认类型 defaults to type ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
@@ -76,8 +77,53 @@
         </encoder>
     </appender>
 
+    <!-- JaninoEventEvaluator matcher 测试-->
+    <appender name="MATCHER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <matcher>
+                    <Name>odd</Name>
+                    <!-- filter out odd numbered statements -->
+                    <regex>statement [13579]</regex>
+                </matcher>
+
+                <expression>odd.matches(formattedMessage)</expression>
+            </evaluator>
+            <OnMismatch>NEUTRAL</OnMismatch>
+            <OnMatch>DENY</OnMatch>
+        </filter>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- turboFilter会在其他filter前执行-->
+    <turboFilter class="com.hzy.logging.common.filter.SampleTurboFilter">
+        <Marker>sample</Marker>
+    </turboFilter>
+    <appender name="SAMPLE_TURBO_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %-4relative [%thread] %-5level %logger - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- turboFilter会在其他filter前执行-->
+    <turboFilter class="ch.qos.logback.classic.turbo.DuplicateMessageFilter">
+        <AllowedRepetitions>3</AllowedRepetitions> <!--默认 5 -->
+        <CacheSize>10</CacheSize> <!--默认 100 -->
+    </turboFilter>
+    <appender name="DUPLICATE_FILTER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+
     <!-- ROOT 中的日志级别影响filter中的过滤，他控制了日志级别能否出现在filter中，此处为了测试，可以将级别调整为DEBUG-->
     <root level="DEBUG">
-        <appender-ref ref="JANINO_STDOUT"/>
+        <appender-ref ref="DUPLICATE_FILTER_STDOUT"/>
     </root>
 </configuration>

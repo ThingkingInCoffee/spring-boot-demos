@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--当没有配置时，使用的默认配置等同如下-->
 <configuration>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 指定了file则每次轮转活跃的文件名称始终为file设置的 -->
