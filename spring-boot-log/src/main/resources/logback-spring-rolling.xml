@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 指定了file则每次轮转活跃的文件名称始终为file设置的 -->
+        <!-- 指定了file 则每次轮转活跃的文件名称始终为file设置的 -->
         <file>logFile.log</file>
         <!-- 轮转的方式-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 按天轮转 -->
+            <!-- 按天轮转 %d 可以省略格式，默认{yyyy-MM-dd}-->
             <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 按秒轮转 -->
+<!--            <fileNamePattern>logFile.%d{yyyy-MM-dd HH-mm-ss}.log</fileNamePattern>-->
+            <!-- 按秒轮转 按分钟归档文件夹-->
+<!--            <fileNamePattern>./%d{yyyy-MM-dd HH-mm,aux}/logFile.%d{yyyy-MM-dd HH-mm-ss}.log</fileNamePattern>-->
             <!-- 可以使用多个%d设置辅助轮转规则（通过 aux）,此时的轮转单位依然是不带aux的yyyy-MM-dd以天为单位-->
 <!--            <fileNamePattern>logFile.%d{yyyy/MM, aux}/myapplication.%d{yyyy-MM-dd}.log</fileNamePattern>-->
-            <!-- 保存 30 天的历史记录，最大大小为 30GB -->
+            <!-- 保存 30 个轮转周期的历史记录，最大大小为 30GB -->
             <maxHistory>30</maxHistory>
-            <totalSizeCap>3KB</totalSizeCap>
-            <!-- appender 启动的时候，归档文件将会被删除。默认的值为 false-->
+            <!-- 设置归档文件的总大小，超过大小的归档文件会被删除，但不影响正在打印的文档-->
+            <totalSizeCap>300MB</totalSizeCap>
+            <!-- appender 启动的时候，归档文件将会被删除，此选项是为应用生命周期较短等不到轮转触发的情况设计。
+                默认的值为 false，在轮转期间处理归档的删除-->
 <!--            <cleanHistoryOnStart>true</cleanHistoryOnStart>-->
         </rollingPolicy>
         <encoder>
@@ -27,7 +33,7 @@
         <!-- 开启严格模式，默认不开启，开启时不允许开启文件压缩，同时不能启用 file 属性 -->
         <prudent>true</prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logPrudentFile.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
@@ -41,10 +47,10 @@
         <file>sizeAndTime.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 按天轮转 -->
-            <!-- 除了 %d 之外还有 %i 两个占位符都是强制要求-->
-            <fileNamePattern>sizeAndTime-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 除了 %d 之外还有 %i 两个占位符都是强制要求 %i 代表轮转文件索引 0 起始-->
+            <fileNamePattern>sizeAndTime-%d{yyyy-MM-dd HH-mm}.%i.log</fileNamePattern>
             <!-- 单文件的最大值-->
-            <maxFileSize>1MB</maxFileSize>
+            <maxFileSize>10KB</maxFileSize>
             <maxHistory>60</maxHistory>
             <totalSizeCap>20MB</totalSizeCap>
         </rollingPolicy>

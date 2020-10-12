@@ -14,5 +14,5 @@ logging:
 #  config: classpath:logback-spring.xml
 #  config: classpath:special-logback.xml
 #  config: classpath:logback-spring-${spring.profiles.active}.xml
-  config: classpath:logback-spring-filter.xml
-
+#  config: classpath:logback-spring-filter.xml
+  config: classpath:logback-spring-rolling.xml
