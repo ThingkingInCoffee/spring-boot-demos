@@ -1,8 +1,14 @@
 server:
-  port: 8088
+  port: 8800
+  servlet:
+    application-display-name: baseServer
 
 spring:
-  application:
-    name: boot-base-application
   profiles:
     active: test
+  application:
+    name: base-application
+
+cfg:
+  name: configFile
+  file_url: application.yml
