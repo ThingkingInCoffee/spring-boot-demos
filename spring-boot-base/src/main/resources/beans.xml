@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--通过 @ImportResource 注解将 原生 xml 配置文件中的bean引入spring boot-->
+    <bean id="userXml" class="com.hzy.base.entry.entity.User">
+        <property name="username" value="king"/>
+        <property name="age" value="18"/>
+    </bean>
+
+    <bean id="petXml" class="com.hzy.base.entry.entity.Pet">
+        <property name="petName" value="tomcat"/>
+    </bean>
+
+</beans>
