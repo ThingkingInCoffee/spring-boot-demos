@@ -9,7 +9,6 @@ public class SpringBootBaseApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringBootBaseApplication.class, args);
-        Object test = applicationContext.getBean("test");
     }
 
 }

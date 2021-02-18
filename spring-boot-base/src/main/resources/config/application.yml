@@ -1,0 +1,5 @@
+# classpath 类路径下的 config 路径配置文件加载
+# config 路径下的加载优先级要高于 classpath 路径下配置文件
+cfg:
+  name: configFile
+  file_url: config/application.yml

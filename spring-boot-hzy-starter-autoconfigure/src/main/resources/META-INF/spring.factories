@@ -1,0 +1,3 @@
+# Auto Configure  指定需要自动配置的类
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.hzy.starter.config.StarterServiceAutoConfiguration
