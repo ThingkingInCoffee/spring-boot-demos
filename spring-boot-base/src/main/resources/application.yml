@@ -1,0 +1,11 @@
+server:
+  port: 8800
+  servlet:
+    application-display-name: baseServer
+
+spring:
+  profiles:
+    active: test
+  application:
+    name: base-application
+

@@ -8,6 +8,11 @@ spring:
     active: local
   application:
     name: rabbit-application
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/demo?useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
   rabbitmq:
     host: localhost
     port: 5672
@@ -32,12 +37,12 @@ spring:
         #采用手动应答
         acknowledge-mode: manual
         # 监听器执行线程的最小数值
-        concurrenc: 1
+        concurrency: 2
         # 最大数
-        max-concurrency: 1
+        max-concurrency: 5
         prefetch: 1
         auto-startup: true
-        batch-size: 5
+        batch-size: 1
         # 容器空闲事件发布间隔
         idle-event-interval: 1000
         # 是否拒绝默认规则re-queue的传递
