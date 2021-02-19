@@ -1,0 +1,6 @@
+server:
+  port: 8801
+
+starters:
+  name: hzy
+  words: 配置文件的自定义属性

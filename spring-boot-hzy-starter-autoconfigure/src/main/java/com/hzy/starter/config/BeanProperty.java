@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("starter")
 public class BeanProperty {
 
-    private String name;
+    private String name = "admin";
 
-    private String words;
+    private String words = "默认原始属性";
 }
