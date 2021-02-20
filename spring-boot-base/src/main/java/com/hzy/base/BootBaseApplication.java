@@ -1,11 +1,10 @@
 package com.hzy.base;
 
-import com.hzy.TestScanPackage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@SpringBootApplication(scanBasePackages = "com.hzy")
+@SpringBootApplication(scanBasePackages = "com.hzy") // 指定组件扫描包scanBasePackages
 public class BootBaseApplication {
 
     public static void main(String[] args) {
