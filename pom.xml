@@ -28,6 +28,7 @@
         <module>spring-boot-hzy-starter</module>
         <module>spring-boot-hzy-starter-autoconfigure</module>
         <module>spring-boot-hzy-starter-use</module>
+        <module>spring-boot-mybatis</module>
     </modules>
 
 
@@ -103,6 +104,11 @@
                 <groupId>com.lowagie</groupId>
                 <artifactId>itext</artifactId>
                 <version>${com.lowagie.itext}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.71</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
