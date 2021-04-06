@@ -16,16 +16,6 @@ public class MybatisApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MybatisApplication.class, args);
-        String resource = "config/mybatis-config.xml";
-        InputStream inputStream = null;
-        try {
-            inputStream = Resources.getResourceAsStream(resource);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        Configuration configuration = sqlSessionFactory.getConfiguration();
-        System.out.println(JSON.toJSONString(configuration));
     }
 
 }

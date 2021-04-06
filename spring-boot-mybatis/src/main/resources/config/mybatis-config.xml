@@ -3,14 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties resource="config/jdbc-demo.properties"/>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="${driver}"/>
-                <property name="url" value="${url}"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
+                <property name="driver" value="${jdbc.demo.driver}"/>
+                <property name="url" value="${jdbc.demo.url}"/>
+                <property name="username" value="${jdbc.demo.username}"/>
+                <property name="password" value="${jdbc.demo.password}"/>
             </dataSource>
         </environment>
     </environments>
