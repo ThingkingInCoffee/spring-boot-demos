@@ -3,6 +3,7 @@ package com.hzy.mybatis.test;
 import com.alibaba.fastjson.JSON;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -19,7 +20,8 @@ public class SqlSessionFactoryDemo {
             e.printStackTrace();
         }
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        Configuration configuration = sqlSessionFactory.getConfiguration();
-        System.out.println(JSON.toJSONString(configuration.getEnvironment()));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Object o = sqlSession.selectOne("selectByPrimaryKey", 1);
+        System.out.println(JSON.toJSONString(o));
     }
 }
