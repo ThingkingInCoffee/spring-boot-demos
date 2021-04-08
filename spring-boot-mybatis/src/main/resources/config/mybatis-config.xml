@@ -3,7 +3,85 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="config/jdbc-demo.properties"/>
+
+    <!-- 可以在外部进行配置，并可以进行动态替换，属性值可以全局使用，例如 参考数据源部分配置 -->
+    <!-- 除了 property 和 properties 设置属性，还可以通过 SqlSessionFactoryBuilder.build() 方法设置属性，后者覆盖前者内容-->
+    <properties resource="config/jdbc-demo.properties">
+        <property name="innerName" value="name_value"/>
+        <property name="password" value="F2Fa3!33TYyg"/>
+        <!-- 启用默认值特性 -->
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+        <property name="utName" value="${db:utName:other_name}"/> <!--默认 : 分割-->
+        <!-- 修改默认值的分隔符 -->
+        <property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="?:"/>
+        <property name="myName" value="${db:my_name?:other_name}"/>
+    </properties>
+    <!-- MyBatis 中极为重要的调整设置-->
+    <settings>
+        <!-- 全局性地开启或关闭所有映射器配置文件mapper.xml中已配置的任何缓存。默认true-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--延迟加载的全局开关 默认false 特定关联关系中可通过设置 fetchType 属性来覆盖该项的开关状态-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--是否允许单个语句返回多结果集（需要数据库驱动支持） 默认true-->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <!--允许 JDBC 支持自动生成主键，需要数据库驱动支持。如果设置为 true，将强制使用自动生成主键。默认 false-->
+        <setting name="useGeneratedKeys" value="false"/>
+        <!--指定 MyBatis 应如何自动映射列到字段或属性。 NONE 表示关闭自动映射；PARTIAL 只会自动映射没有定义嵌套结果映射的字段。
+        FULL 会自动映射任何复杂的结果集（无论是否嵌套） 默认 PARTIAL-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!--指定发现自动映射目标未知列（或未知属性类型）的行为。-->
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <!--配置默认的执行器。SIMPLE 就是普通的执行器；REUSE 执行器会重用预处理语句（PreparedStatement）；
+         BATCH 执行器不仅重用语句还会执行批量更新。 默认SIMPLE-->
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <!--设置超时时间，它决定数据库驱动等待数据库响应的秒数, 正整数，默认未设置-->
+        <setting name="defaultStatementTimeout" value="25"/>
+        <!--为驱动的结果集获取数量（fetchSize）设置一个建议值。此参数只可以在查询设置中被覆盖。默认未设置-->
+        <setting name="defaultFetchSize" value="100"/>
+        <!--是否允许在嵌套语句中使用分页（RowBounds）。如果允许使用则设置为 false。默认false-->
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <!--是否允许在嵌套语句中使用结果处理器（ResultHandler）。如果允许使用则设置为 false。默认true-->
+        <setting name="safeResultHandlerEnabled" value="true"/>
+        <!--是否开启驼峰命名自动映射，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn。默认false-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--MyBatis 利用本地缓存机制（Local Cache）防止循环引用和加速重复的嵌套查询。 默认值为 SESSION，
+        会缓存一个会话中执行的所有查询。 若设置值为 STATEMENT，本地缓存将仅用于执行语句，对相同 SqlSession 的不同查询将不会进行缓存。-->
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <!--指定对象的哪些方法触发一次延迟加载。逗号分隔-->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <!--指定 Enum 使用的默认 TypeHandler 。（新增于 3.4.5）-->
+        <setting name="defaultEnumTypeHandler" value="org.apache.ibatis.type.EnumTypeHandler"/>
+        <!--指定当结果集中值为 null 的时候是否调用映射对象的 setter（map 对象时为 put）方法，
+        这在依赖于 Map.keySet() 或 null 值进行初始化时比较有用。注意基本类型（int、boolean 等）是不能设置成 null 的。默认false-->
+        <setting name="callSettersOnNulls" value="false"/>
+        <!--当返回行的所有列都是空时，MyBatis默认返回 null。 当开启这个设置时，MyBatis会返回一个空实例。
+        请注意，它也适用于嵌套的结果集（如集合或关联）。（新增于 3.4.2）默认false-->
+        <setting name="returnInstanceForEmptyRow" value="false"/>
+        <!--指定 MyBatis 增加到日志名称的前缀。 默认未设置-->
+        <setting name="logPrefix" value=""/>
+        <!--指定 MyBatis 所用日志的具体实现，未指定时将自动查找 默认未设置
+        可选 SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING-->
+        <setting name="logImpl" value="SLF4J"/>
+        <!--指定 Mybatis 创建可延迟加载对象所用到的代理工具。	CGLIB | JAVASSIST  默认JAVASSIST-->
+        <setting name="proxyFactory" value="JAVASSIST"/>
+        <!--从SQL中删除多余的空格字符。请注意，这也会影响SQL中的文字字符串。 (新增于 3.5.5) 默认false-->
+        <!--<setting name="shrinkWhitespacesInSql" value="false"/>-->
+    </settings>
+    <!--类型别名可为 Java 类型设置一个缩写名字。 它仅用于 XML 配置，意在降低冗余的全限定类名书写-->
+    <typeAliases>
+        <typeAlias alias="typeAliases" type="com.hzy.mybatis.entry.TypeAliasesDemo"/>
+        <!--可以指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean-->
+        <!--每一个在包 domain.blog 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。-->
+        <package name="com.hzy.mybatis.entry.aliases"/>
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.hzy.mybatis.config.ExamplePlugin">
+            <property name="dialect" value="mysql" />
+            <property name="test_pop" value="123412341" />
+        </plugin>
+    </plugins>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -17,6 +95,6 @@
     </environments>
     <mappers>
         <mapper resource="mapper/DemoEntryMapper.xml"/>
-<!--        <package name="com.hzy.mybatis.mapper"/>-->
+        <!--        <package name="com.hzy.mybatis.mapper"/>-->
     </mappers>
 </configuration>
