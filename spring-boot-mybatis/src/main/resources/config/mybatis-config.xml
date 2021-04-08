@@ -77,9 +77,12 @@
         <package name="com.hzy.mybatis.entry.aliases"/>
     </typeAliases>
     <plugins>
-        <plugin interceptor="com.hzy.mybatis.config.ExamplePlugin">
+        <plugin interceptor="com.hzy.mybatis.config.plugins.ExamplePlugin">
             <property name="dialect" value="mysql" />
             <property name="test_pop" value="123412341" />
+        </plugin>
+        <plugin interceptor="com.hzy.mybatis.config.plugins.SensitivePlugin">
+
         </plugin>
     </plugins>
     <environments default="development">
@@ -95,6 +98,7 @@
     </environments>
     <mappers>
         <mapper resource="mapper/DemoEntryMapper.xml"/>
-        <!--        <package name="com.hzy.mybatis.mapper"/>-->
+        <mapper resource="mapper/SensitiveEntryMapper.xml"/>
+        <!--                <package name="com.hzy.mybatis.mapper"/>-->
     </mappers>
 </configuration>

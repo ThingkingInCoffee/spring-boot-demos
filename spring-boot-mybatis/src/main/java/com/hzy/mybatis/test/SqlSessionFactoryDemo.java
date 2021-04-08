@@ -2,7 +2,9 @@ package com.hzy.mybatis.test;
 
 import com.alibaba.fastjson.JSON;
 import com.hzy.mybatis.entry.DemoEntry;
+import com.hzy.mybatis.entry.SensitiveEntry;
 import com.hzy.mybatis.mapper.DemoEntryMapper;
+import com.hzy.mybatis.mapper.SensitiveEntryMapper;
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.mapping.Environment;
@@ -16,6 +18,7 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 public class SqlSessionFactoryDemo {
 
@@ -31,6 +34,21 @@ public class SqlSessionFactoryDemo {
         DemoEntryMapper mapper = sqlSession.getMapper(DemoEntryMapper.class);
         DemoEntry demoEntry = mapper.selectByPrimaryKey(1);
         System.out.println(JSON.toJSONString(demoEntry));
+        System.out.println("=============================");
+        SensitiveEntryMapper sensitiveEntryMapper = sqlSession.getMapper(SensitiveEntryMapper.class);
+//        SensitiveEntry sensitiveEntry = sensitiveEntryMapper.selectByPrimaryKey(1l);
+//        System.out.println(JSON.toJSONString(sensitiveEntry));
+        SensitiveEntry entry = new SensitiveEntry();
+        entry.setAddress("ssss");
+        entry.setIdCard("pppp");
+        entry.setName("ttttttt");
+        entry.setPhone("13333333ss");
+        entry.setCreateTime(new Date());
+        sensitiveEntryMapper.insertSelective(entry);
+        sqlSession.commit();
+        SensitiveEntry sensitiveEntry = sensitiveEntryMapper.selectByPrimaryKey(entry.getId());
+        System.out.println(JSON.toJSONString(sensitiveEntry));
+
     }
 
     /**

@@ -1,7 +1,8 @@
-package com.hzy.mybatis.config;
+package com.hzy.mybatis.config.plugins;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.*;
@@ -24,6 +25,9 @@ public class ExamplePlugin implements Interceptor {
     public Object intercept(Invocation invocation) throws Throwable {
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
         BoundSql boundSql = statementHandler.getBoundSql();
+        ParameterHandler parameterHandler = statementHandler.getParameterHandler();
+        Object parameterObject = parameterHandler.getParameterObject();
+        log.info("parameterObject [{}]", JSON.toJSONString(parameterObject));
         String sql = boundSql.getSql();
         log.info("打印 sql:{}", sql);
         return invocation.proceed();
