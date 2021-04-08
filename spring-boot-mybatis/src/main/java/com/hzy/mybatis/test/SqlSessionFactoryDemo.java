@@ -24,15 +24,19 @@ public class SqlSessionFactoryDemo {
 
 
     public static void main(String[] args) {
-//        SqlSessionFactory sqlSessionFactory = getFactoryWithXml();
-        SqlSessionFactory sqlSessionFactory = getFactoryWithoutXml();
+        SqlSessionFactory sqlSessionFactory = getFactoryWithXml();
+//        SqlSessionFactory sqlSessionFactory = getFactoryWithoutXml();
         SqlSession sqlSession = sqlSessionFactory.openSession();
-//        Object demoEntry = sqlSession.selectOne("com.hzy.mybatis.mapper.DemoEntryMapper.selectByPrimaryKey", 1);
+//        DemoEntry demoEntry = sqlSession.selectOne("com.hzy.mybatis.mapper.DemoEntryMapper.selectByPrimaryKey", 1);
         DemoEntryMapper mapper = sqlSession.getMapper(DemoEntryMapper.class);
         DemoEntry demoEntry = mapper.selectByPrimaryKey(1);
         System.out.println(JSON.toJSONString(demoEntry));
     }
 
+    /**
+     * xml 方式解析需要 mapper 映射到 xml， mapper 中的方法不能添加注解，会产生冲突异常
+     * @return
+     */
     public static SqlSessionFactory getFactoryWithXml() {
         String resource = "config/mybatis-config.xml";
         InputStream inputStream = null;
@@ -45,12 +49,17 @@ public class SqlSessionFactoryDemo {
         return sqlSessionFactory;
     }
 
+    /**
+     * 注解方式 需要在 mapper 方法上添加 对应注解的sql语句用于映射
+     * @return
+     */
     public static SqlSessionFactory getFactoryWithoutXml() {
         DataSource dataSource = new UnpooledDataSource(driver, url, "root", "root");
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("development", transactionFactory, dataSource);
         Configuration configuration = new Configuration(environment);
-        configuration.addMappers("com.hzy.mybatis.mapper.DemoEntryMapper");
+        configuration.addMapper(DemoEntryMapper.class);
+//        configuration.addMappers("com.hzy.mybatis.mapper");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         return sqlSessionFactory;
     }

@@ -16,7 +16,7 @@
         </environment>
     </environments>
     <mappers>
-<!--        <mapper resource="mapper/DemoEntryMapper.xml"/>-->
-        <package name="com.hzy.mybatis.mapper"/>
+        <mapper resource="mapper/DemoEntryMapper.xml"/>
+<!--        <package name="com.hzy.mybatis.mapper"/>-->
     </mappers>
 </configuration>
