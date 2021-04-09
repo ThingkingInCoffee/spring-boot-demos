@@ -18,7 +18,6 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 
 public class SqlSessionFactoryDemo {
 
@@ -35,20 +34,17 @@ public class SqlSessionFactoryDemo {
         DemoEntry demoEntry = mapper.selectByPrimaryKey(1);
         System.out.println(JSON.toJSONString(demoEntry));
         System.out.println("=============================");
-        SensitiveEntryMapper sensitiveEntryMapper = sqlSession.getMapper(SensitiveEntryMapper.class);
-//        SensitiveEntry sensitiveEntry = sensitiveEntryMapper.selectByPrimaryKey(1l);
+//        SensitiveEntryMapper sensitiveEntryMapper = sqlSession.getMapper(SensitiveEntryMapper.class);
+//        SensitiveEntry entry = new SensitiveEntry();
+//        entry.setAddress("ssss");
+//        entry.setIdCard("pppp");
+//        entry.setName("ttttttt");
+//        entry.setPhone("13333333ss");
+//        entry.setCreateTime(new Date());
+//        sensitiveEntryMapper.insertSelective(entry);
+//        sqlSession.commit();
+//        SensitiveEntry sensitiveEntry = sensitiveEntryMapper.selectByPrimaryKey(entry.getId());
 //        System.out.println(JSON.toJSONString(sensitiveEntry));
-        SensitiveEntry entry = new SensitiveEntry();
-        entry.setAddress("ssss");
-        entry.setIdCard("pppp");
-        entry.setName("ttttttt");
-        entry.setPhone("13333333ss");
-        entry.setCreateTime(new Date());
-        sensitiveEntryMapper.insertSelective(entry);
-        sqlSession.commit();
-        SensitiveEntry sensitiveEntry = sensitiveEntryMapper.selectByPrimaryKey(entry.getId());
-        System.out.println(JSON.toJSONString(sensitiveEntry));
-
     }
 
     /**
@@ -80,6 +76,23 @@ public class SqlSessionFactoryDemo {
 //        configuration.addMappers("com.hzy.mybatis.mapper");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         return sqlSessionFactory;
+    }
+
+    public static SqlSessionFactory getFactoryWithJavaConfig() {
+        DataSource dataSource = new UnpooledDataSource(driver, url, "root", "root");
+        TransactionFactory transactionFactory = new JdbcTransactionFactory();
+        Environment environment = new Environment("development", transactionFactory, dataSource);
+        Configuration configuration = new Configuration(environment);
+        configuration.setLazyLoadingEnabled(true);
+//        configuration.setEnhancementEnabled(true);
+        configuration.getTypeAliasRegistry().registerAlias(DemoEntry.class);
+        configuration.getTypeAliasRegistry().registerAlias(SensitiveEntry.class);
+        configuration.addMapper(DemoEntryMapper.class);
+        configuration.addMapper(SensitiveEntryMapper.class);
+
+        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(configuration);
+        return factory;
     }
 
 }

@@ -10,7 +10,7 @@ public interface DemoEntryMapper {
 
     DemoEntry selectDemo(Integer id);
 
-    int insertDemo();
+    int insertDemo(DemoEntry record);
 
     int updateDemo();
 

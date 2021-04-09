@@ -19,6 +19,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <!--配合include标签使用-->
   <sql id="Base_Column_List" >
     id, demo_name, demo_type, zip_code, create_time, update_time
   </sql>
@@ -28,13 +29,25 @@
     from demo_entry
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <!--flushCache 清空缓存设置为 true 后，只要语句被调用，都会导致本地缓存和二级缓存被清空，默认值：false。-->
-  <select id="selectDemo" parameterType="int"  resultType="hashmap" flushCache="false" useCache="true"
+  <!--flushCache 清空缓存  设置为 true 后，只要语句被调用，都会导致本地缓存和二级缓存被清空，默认值：false。-->
+  <!--useCache  该语句使用二级缓存，select语句默认为true-->
+  <!--timeout 抛出异常之前，驱动程序等待数据库返回请求结果的秒，数默认值为未设置（unset）（依赖数据库驱动）-->
+  <!--fetchSize 这是一个给驱动的建议值，尝试让驱动程序每次批量返回的结果行数等于这个设置值。 默认值为未设置（unset）（依赖驱动）。-->
+  <!--statementType 可选 STATEMENT，PREPARED 或 CALLABLE。分别使用 Statement，PreparedStatement 或 CallableStatement，默认值：PREPARED。-->
+  <select id="selectDemo" parameterType="int"  resultType="com.hzy.mybatis.entry.DemoEntry" flushCache="false" useCache="true"
           timeout="10" fetchSize="256" statementType="PREPARED" resultSetType="FORWARD_ONLY">
     select * from demo_entry where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertDemo">
-        insert into demo_entry (demo_name, demo_type, zip_code, create_time) values ('test_name', 1, '100000', now());
+  <!--useGeneratedKeys 仅适用于 insert 和 update 使用 JDBC 的 getGeneratedKeys 方法来取出由数据库内部生成的主键-->
+  <!--keyProperty 指定能够唯一识别对象的属性-->
+  <insert id="insertDemo" parameterType="com.hzy.mybatis.entry.DemoEntry" useGeneratedKeys="true"
+  keyProperty="id" keyColumn="id">
+    insert into demo_entry (id, demo_name, demo_type,
+      zip_code, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{demoName,jdbcType=VARCHAR}, #{demoType,jdbcType=TINYINT},
+      #{zipCode,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <update id="updateDemo">
 
