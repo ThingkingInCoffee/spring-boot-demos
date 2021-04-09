@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hzy.mybatis.mapper.DemoEntryMapper" >
+  <cache>
+
+  </cache>
+  <cache-ref></cache-ref>
   <resultMap id="BaseResultMap" type="com.hzy.mybatis.entry.DemoEntry" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="demo_name" property="demoName" jdbcType="VARCHAR" />
@@ -18,4 +22,16 @@
     from demo_entry
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectDemo" parameterType="int"  resultType="hashmap">
+    select * from demo_entry where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insertDemo">
+        insert into demo_entry (demo_name, demo_type, zip_code, create_time) values ('test_name', 1, '100000', now());
+  </insert>
+  <update id="updateDemo">
+
+  </update>
+  <delete id="deleteDemo">
+
+  </delete>
 </mapper>
