@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hzy.mybatis.mapper.DemoEntryMapper" >
-  <cache>
-
-  </cache>
-  <cache-ref>同组开发</cache-ref>
+  <!--eviction 指定缓存过期策略 默认LRU 可选 LRU FIFO SOFT WEAK-->
+  <!--flushInterval 指定缓存刷新间隔 默认不刷新，仅在调用时刷新-->
+  <!--size 指定缓存引用数目 默认 1024-->
+  <!--readOnly 只读 返回缓存对象的相同示例，缓存对象不能修改，性能好。读写模式返回缓存对象的拷贝，速度慢些-->
+  <!--type 指定自定义缓存实现-->
+  <!--定义全局缓存配置之后，也可以在单个语句配置中通过 useCache 属性控制使用缓存以及flushCache属性-->
+  <!--<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" type="com.domain.something.MyCustomCache"/>-->
+  <!--指定使用其他 namespace 的缓存配置-->
+  <!--<cache-ref namespace="com.someone.application.data.SomeMapper"/>-->
   <resultMap id="BaseResultMap" type="com.hzy.mybatis.entry.DemoEntry" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="demo_name" property="demoName" jdbcType="VARCHAR" />
