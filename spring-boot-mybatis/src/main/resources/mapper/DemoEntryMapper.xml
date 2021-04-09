@@ -4,7 +4,7 @@
   <cache>
 
   </cache>
-  <cache-ref></cache-ref>
+  <cache-ref>同组开发</cache-ref>
   <resultMap id="BaseResultMap" type="com.hzy.mybatis.entry.DemoEntry" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="demo_name" property="demoName" jdbcType="VARCHAR" />
