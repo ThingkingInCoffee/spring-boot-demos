@@ -29,15 +29,16 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!--flushCache 清空缓存设置为 true 后，只要语句被调用，都会导致本地缓存和二级缓存被清空，默认值：false。-->
-  <select id="selectDemo" parameterType="int"  resultType="hashmap" flushCache="false" useCache="true"
+  <select id="selectDemo" parameterType="int"  resultType="com.hzy.mybatis.entry.DemoEntry" flushCache="false" useCache="true"
           timeout="10" fetchSize="256" statementType="PREPARED" resultSetType="FORWARD_ONLY">
     select * from demo_entry where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertDemo">
-        insert into demo_entry (demo_name, demo_type, zip_code, create_time) values ('test_name', 1, '100000', now());
+  <insert id="insertDemo" parameterType="com.hzy.mybatis.entry.DemoEntry">
+        insert into demo_entry (demo_name, demo_type, zip_code, create_time)
+        values (#{demoName}, #{demoType}, #{zipCode}, now());
   </insert>
   <update id="updateDemo">
-
+        update demo_entry set demo_name = #{arg1} where id = #{arg0};
   </update>
   <delete id="deleteDemo">
 

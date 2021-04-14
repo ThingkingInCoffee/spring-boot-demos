@@ -10,9 +10,9 @@ public interface DemoEntryMapper {
 
     DemoEntry selectDemo(Integer id);
 
-    int insertDemo();
+    int insertDemo(DemoEntry demoEntry);
 
-    int updateDemo();
+    int updateDemo(String id, String username);
 
     int deleteDemo();
 }

@@ -7,7 +7,7 @@ public class DemoEntry {
 
     private String demoName;
 
-    private Byte demoType;
+    private Integer demoType;
 
     private String zipCode;
 
@@ -31,11 +31,11 @@ public class DemoEntry {
         this.demoName = demoName == null ? null : demoName.trim();
     }
 
-    public Byte getDemoType() {
+    public Integer getDemoType() {
         return demoType;
     }
 
-    public void setDemoType(Byte demoType) {
+    public void setDemoType(Integer demoType) {
         this.demoType = demoType;
     }
 

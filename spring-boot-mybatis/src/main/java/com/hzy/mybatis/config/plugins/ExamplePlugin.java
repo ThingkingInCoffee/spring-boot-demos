@@ -27,9 +27,9 @@ public class ExamplePlugin implements Interceptor {
         BoundSql boundSql = statementHandler.getBoundSql();
         ParameterHandler parameterHandler = statementHandler.getParameterHandler();
         Object parameterObject = parameterHandler.getParameterObject();
-        log.info("parameterObject [{}]", JSON.toJSONString(parameterObject));
+        log.info("example parameterObject [{}]", JSON.toJSONString(parameterObject));
         String sql = boundSql.getSql();
-        log.info("打印 sql:{}", sql);
+        log.info("demo 插件打印 sql:{}", sql);
         return invocation.proceed();
     }
 
@@ -42,7 +42,7 @@ public class ExamplePlugin implements Interceptor {
      */
     @Override
     public Object plugin(Object target) {
-        System.out.println("进入plugin方法");
+        System.out.println("进入example plugin方法");
         return Plugin.wrap(target, this);
     }
 
@@ -53,7 +53,7 @@ public class ExamplePlugin implements Interceptor {
      */
     @Override
     public void setProperties(Properties properties) {
-        System.out.println("进入setProperties方法");
+        System.out.println("进入example setProperties方法");
         System.out.println(JSON.toJSONString(properties));
     }
 }
