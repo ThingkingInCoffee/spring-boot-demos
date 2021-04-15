@@ -10,6 +10,8 @@ public interface DemoEntryMapper {
 
     DemoEntry selectDemo(Integer id);
 
+    int insert(DemoEntry demoEntry);
+
     int insertDemo(DemoEntry demoEntry);
 
     int updateDemo(String id, String username);
