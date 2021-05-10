@@ -12,7 +12,7 @@
     <artifactId>spring-boot-file</artifactId>
 
     <properties>
-        <easyexcel.version>2.2.6</easyexcel.version>
+        <easyexcel.version>2.2.8</easyexcel.version>
     </properties>
 
     <dependencies>
