@@ -4,4 +4,6 @@ public interface TestService {
 
     void queryData();
 
+    void testTx();
+
 }

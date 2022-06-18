@@ -34,4 +34,11 @@ public class TestServiceImpl implements TestService {
         log.info("list 02 is {}", JSON.toJSONString(list02));
         log.info("time is {}", end - start);
     }
+
+    public void testTx(){
+        List<Test01> test01s = test01Mapper.selectAll();
+        log.info("list 011 is {}", JSON.toJSONString(test01s));
+        List<Test01> test02s = test01Mapper.select01();
+        log.info("list 012 is {}", JSON.toJSONString(test02s));
+    }
 }

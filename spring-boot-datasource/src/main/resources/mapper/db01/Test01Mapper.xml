@@ -8,4 +8,7 @@
     <select id="selectAll" resultMap="BaseResultMap">
         select * from test01
     </select>
+    <select id="select01" resultMap="BaseResultMap">
+        select * from test01 where id = 1
+    </select>
 </mapper>

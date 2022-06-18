@@ -21,4 +21,10 @@ public class TestController {
         testService.queryData();
     }
 
+    @GetMapping("/testTx")
+    public void testTransactional() {
+        log.info("into test Transactional");
+        testService.testTx();
+    }
+
 }

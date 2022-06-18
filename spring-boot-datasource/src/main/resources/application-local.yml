@@ -5,7 +5,7 @@ spring:
   datasource:
     db01:
       name: test
-      url: jdbc:mysql://localhost:3306/db01
+      url: jdbc:mysql://localhost:3306/db01?useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
       username: root
       password: root
       # 使用druid数据源
@@ -27,7 +27,7 @@ spring:
       maxOpenPreparedStatements: 20
     db02:
       name: test
-      url: jdbc:mysql://localhost:3307/db02
+      url: jdbc:mysql://localhost:3307/db02?useSSL=false&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
       username: root
       password: root
       # 使用druid数据源
@@ -46,3 +46,10 @@ spring:
       testOnReturn: false
       poolPreparedStatements: true
       maxOpenPreparedStatements: 20
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com.hzy.datasource.dao: debug

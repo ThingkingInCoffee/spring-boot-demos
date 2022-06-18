@@ -12,4 +12,5 @@ public interface Test01Mapper {
 
     List<Test01> selectAll();
 
+    List<Test01> select01();
 }
