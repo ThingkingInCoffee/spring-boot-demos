@@ -29,6 +29,8 @@
         <module>spring-boot-hzy-starter-autoconfigure</module>
         <module>spring-boot-hzy-starter-use</module>
         <module>spring-boot-mybatis</module>
+        <module>spring-boot-websocket</module>
+        <module>spring-boot-kafka</module>
     </modules>
 
 
@@ -49,6 +51,7 @@
         <google.zxing.version>3.3.3</google.zxing.version>
         <google.zxing.core>3.3.3</google.zxing.core>
         <poi-ooxml>3.17</poi-ooxml>
+        <hutool.version>5.8.12</hutool.version>
         <org.jeecg.easypoi-base>2.1.3</org.jeecg.easypoi-base>
         <org.jeecg.easypoi-annotation>2.1.3</org.jeecg.easypoi-annotation>
         <com.lowagie.itext>4.2.2</com.lowagie.itext>
@@ -67,6 +70,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 
